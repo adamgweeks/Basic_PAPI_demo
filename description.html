@@ -1,0 +1,42 @@
+<html>
+<head></head>
+<body>
+<h1>Description</h1>
+<img src="/images/papi.png">
+<p>
+This demo is using the Platform API for Isilon (sometimes referred to as PAPI).<br>
+The Platform API allows you to query and even send commands to an Isilon cluster. 
+The commands are sent in a <a href="http://en.wikipedia.org/wiki/Representational_state_transfer">RESTful</a> fashion.<br>  
+This essentially means that the information is being accessed as if the application were accessing a web page from a webserver (the Isilon cluster being that webserver).<br>
+</p>
+<p>
+To access we do need to provide a username and password (so that it is secure) although note that in this demo application the username and password given are not well protected (it is a simple test).
+</p>
+<p>
+The information sent back is in a format called <a href='http://en.wikipedia.org/wiki/JSON'>JSON</a> which is a method for encoding an array, which can be decoded 
+and then used in a program (in this case PHP).
+</p>
+<p>
+The demo uses PHP and JQUERY (PHP doing the work, <a href="http://en.wikipedia.org/wiki/JQuery">JQUERY</a> making it act in a nice interactive manner).
+</p>
+<p>
+Although you can see all of the <a href="./source_code.php">Source code</a> to highlight <b>the two most important lines</b> from the PHP code:
+</p>
+<p>
+<code>$encodedcontents = @file_get_contents($service_url,false,$context);</code><br><br>
+The <a href="http://php.net/manual/en/function.file-get-contents.php">file_get_contents</a> function downloads the 'web content' from the array using the url given.  To see the urls see the examples under the 'view detail' links, these are formed into the $service_url variable.
+Note the $context variable is just to setup the web authentication as PAPI uses the secure web protocol HTTPS rather than simple HTTP.
+</p><p>
+<code>$decodedcontents = @json_decode($encodedcontents,true);</code><br><br>
+
+The <a href="http://php.net/manual/en/function.json-decode.php">json_decode</a> function takes the raw JSON encoded text that we downloaded in the last command and 
+re-encodes it from <a href='http://en.wikipedia.org/wiki/JSON'>JSON</a> text to a useable, native <a href="http://php.net/manual/en/language.types.array.php">array</a> (or group of variables) so that we can do something with it in PHP.
+</p>
+Although this is a simple '101' demo, to see how PAPI can be used to help create powerful applications for use with Isilon clusters see:
+<ul>
+	<li><a href='https://github.com/obergt/Isilon_Tools' target='_blank'>Create and restore shares, exports and quotas on an Isilon system</a> written by <a href='https://github.com/obergt' Target='_blank'>Tamir Obergot</a></li>
+	<li><a href='http://www.emc.com/storage/isilon/insightiq.htm' target='_blank'>Isilon InsightIQ</a> a product for monitoring of Isilon clusters that uses PAPI</li>
+</ul>
+</p>
+<a href="./index.php">Back to main page</a>
+</body>
